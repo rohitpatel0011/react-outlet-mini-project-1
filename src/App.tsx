@@ -8,6 +8,10 @@ import Services from "./pages/Services";
 import DashboardLayout from "./layout/DashboardLayout";
 import Dashboard from "./pages/Dashboard";
 import Settings from "./pages/Settings";
+import ProtectedRoutes from "./routes/ProtectedRoutes";
+import AuthLayout from "./layout/AuthLayout";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 const App = () => {
   return (
@@ -19,16 +23,28 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="about" element={<About />} />
           <Route path="contact" element={<Contact />} />
-          <Route path="services" element={<Services/>}/>
+          <Route path="services" element={<Services />} />
         </Route>
+
+        {/* Auth Layout
+         */}
+        <Route path="/" element={<AuthLayout />}>
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register/>}/>
+         </Route>
         {/* Dashboard Layout */}
-        <Route path="/dashboard" element={<DashboardLayout/>}>
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoutes>
+              <DashboardLayout />
+            </ProtectedRoutes>
+          }>
           <Route index element={<Dashboard />} />
           <Route path="settings" element={<Settings />} />
-     </Route>
+        </Route>
       </Routes>
     </BrowserRouter>
-
   );
 };
 
