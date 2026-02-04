@@ -1,7 +1,7 @@
 /** @format */
 
 const Home = () => {
-  return <h2>🏠 Home Page</h2>;
+  return <h2>🏠 Home uuh Page</h2>;
 };
 
 export default Home;
