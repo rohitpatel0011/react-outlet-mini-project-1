@@ -1,19 +1,26 @@
+/** @format */
+
 import type { JSX } from "react";
 import { Navigate } from "react-router-dom";
 
 type Props = {
   children: JSX.Element;
-
+  allowedRoles?: string[];
 };
 
-const ProtectedRoutes = ({ children }: Props) => {
-  const isAuthenticated = false;
+const ProtectedRoute = ({ children, allowedRoles }: Props) => {
+  const isAuthenticated = true; // assume logged in
+  const userRole = "user"; // admin | user
+
   if (!isAuthenticated) {
-    return <Navigate to='/login'  replace/>
+    return <Navigate to="/login" replace />;
   }
-  return (
-    children
-  )
+
+  if (allowedRoles && !allowedRoles.includes(userRole)) {
+    return <Navigate to="/dashboard" replace />;
+  }
+
+  return children;
 };
 
-export default ProtectedRoutes
+export default ProtectedRoute;
